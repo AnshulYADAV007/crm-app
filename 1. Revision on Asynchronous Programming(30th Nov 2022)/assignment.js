@@ -17,3 +17,11 @@ const finder = function(filenames) {
     return null;
 }
 
+let filenames = [
+    "./crm-app/1. Revision on Asynchronous Programming(30th Nov 2022)/assignment.js",
+    "./crm-app/README.md",
+    "xyz.txt"
+]
+
+let isPresent = finder(filenames)
+console.log(isPresent)
