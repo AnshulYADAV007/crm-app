@@ -22,9 +22,8 @@
 //     i++
 // }
 
-let func1 = function(resolve, reject) {
+let func1 = function(resolve, reject) { // resolve(3) = x => x * 2
     setTimeout(function() {
-        console.log('in setTimeOur callback 1')
         resolve(3)
     }, 5000)
 }
@@ -36,9 +35,16 @@ let func2 = function(resolve, reject) {
         resolve(5)
     }, 3000)
 }
-let promises = [new Promise(func1), new Promise(func2)]
 
-Promise.all(promises).then(arr => console.log(arr))
+let promise1 = new Promise(func1)
+// let promise2 = new Promise(func2)
+
+promise1.then(
+            x => {
+                console.log(`input = ${x}`); 
+                return x * 2
+            }).then(console.log)
+// Promise.all([promise1, promise2]).then(arr => console.log(arr))
 
 // let i = 0
 // while(i < 3) {
