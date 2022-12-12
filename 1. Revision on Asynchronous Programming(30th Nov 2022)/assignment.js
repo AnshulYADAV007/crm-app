@@ -13,9 +13,30 @@
 
 const fs = require('fs')
 
-const finder = function(filenames) {
-    return null;
-}
+const finder = async function (filenames) {
+    let result = []
+    for (let i = 0; i < filenames.length; i++) {
+      try {
+        let filePresent = false;
+        let readfilenames = new Promise((resolve, reject) => {
+          fs.readFile(filenames[i], "utf-8", (err, data) => {
+            if (err) {
+              reject([filenames[i], filePresent]);
+            } else {
+              filePresent = true;
+              resolve([filenames[i], filePresent]);
+            }
+          });
+        });
+        let data = await readfilenames;
+        result.push(data)
+      } catch (err) {
+        result.push(err);
+      }
+    }
+    return result
+  };
+
 
 let filenames = [
     "./crm-app/1. Revision on Asynchronous Programming(30th Nov 2022)/assignment.js",
@@ -23,5 +44,5 @@ let filenames = [
     "xyz.txt"
 ]
 
-let isPresent = finder(filenames)
-console.log(isPresent)
+
+finder(filenames).then(data => console.log(data))
