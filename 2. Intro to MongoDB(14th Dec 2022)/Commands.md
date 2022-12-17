@@ -34,6 +34,7 @@
 > This will list all collections in the db.
 
 > db.myCollection.drop()
+> This will delete the collection.
 
 ## CRUD Document Operations
 
@@ -66,17 +67,23 @@ A typical GeoJSON field looks like:
 <field> : {<type> : <GeoJSON type>, coordinates : <coordinates>}
 
 {
-"\_id": {
-"$oid": "639a04633c1f9b7df56d8d86"
-},
-"name": "Likhith",
-"address": {
-"type": "Point",
-"coordinates": [
-17.708018,
-83.302324
-]
-}
+    "\_id": {
+        "$oid": "639a04633c1f9b7df56d8d86"
+        },
+    "name": "Likhith",
+    "address": {
+        "type": "Point",
+        "coordinates": [
+            17.708018,
+            83.302324
+        ]
+    }
 }
 
 Before searching for nearby location you need to create an index using the GeoJSON field. Later you can do find using $near operator.
+
+# Projection
+- Projection determines the fields that you want to see in the result.
+- select * from users; vs select name from users;
+- Example :
+    - db.usr.find().projection({name : 1})
