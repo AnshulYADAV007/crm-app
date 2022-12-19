@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "mongoose": "^6.8.0"
+  },
+  "name": "using-mongoose",
+  "description": "1. Install Mongoose\r     cd ./5. Using Mongoose(19th Dec 2022)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
