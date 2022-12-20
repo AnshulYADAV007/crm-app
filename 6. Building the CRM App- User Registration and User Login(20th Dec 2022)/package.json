@@ -1,0 +1,15 @@
+{
+  "name": "crm-app-1",
+  "version": "1.0.0",
+  "description": "Content from class on 20th Dec 2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anshul",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.1"
+  }
+}
