@@ -47,8 +47,8 @@ exports.signup = async (req, res) => {
 }
 
 exports.signin = async (req, res) => {
-    const user = await User.find({ userId: req.body.userId })
-    console.log(user)
+    const user = await User.findOne({ userId: req.body.userId })
+    console.log("Signin Reques for ", user)
 
     if (!user) {
         res.status(400).send({
