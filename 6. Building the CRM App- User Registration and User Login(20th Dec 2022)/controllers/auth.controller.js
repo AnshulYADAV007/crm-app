@@ -9,8 +9,8 @@ const config = require("../configs/auth.config")
 exports.signup = async (req, res) => {
     let userStatus
 
-    if (req.userType == userTypes.engineer ||
-        req.userType == userTypes.admin) {
+    if (req.body.userType == userTypes.engineer ||
+        req.body.userType == userTypes.admin) {
         userStatus = constants.userStatus.pending
     } else {
         userStatus = constants.userStatus.approved
