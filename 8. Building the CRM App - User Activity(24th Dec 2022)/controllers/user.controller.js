@@ -23,7 +23,7 @@ const fetchByName = async (userNameReq, res) => {
     let users
     try {
         users = await User.find({
-            userName: userNameReq
+            name: userNameReq
         });
     } catch (err) {
         console.err("error while fetching the user for userName : ", userNameReq);
@@ -87,7 +87,6 @@ exports.findAll = async (req, res) => {
     let userTypeReq = req.query.userType
     let userStatusReq = req.query.userStatus
     let userNameReq = req.query.name
-
     if (userNameReq) {
         users = await fetchByName(userNameReq, res)
     } else if (userTypeReq && userStatusReq) {
@@ -103,9 +102,41 @@ exports.findAll = async (req, res) => {
 }
 
 exports.findById = async (req, res) => {
-
+    const userIdReq = req.params.userId
+    let user
+    try {
+        user = await User.find({
+            userId: userIdReq
+        })
+    } catch (err) {
+        res.status(500).send({
+            message: "Internal Server Error"
+        })
+    }
+    if (user.length > 0) {
+        res.status(200).send(ObjectConverter.userResponse(user))
+    } else {
+        res.status(200).send({
+            message: `User with this id [${userIdReq}] is not present`
+        })
+    }
 }
 
 exports.update = async (req, res) => {
-
+    const userIdReq = req.params.userId
+    try {
+        const user = await User.findOneAndUpdate({
+            userId: userIdReq
+        }, {
+            userStatus: req.body.userStatus
+        }).exec()
+        res.status(200).send({
+            message: `User record has been updated successfully`
+        })
+    } catch (err) {
+        console.err("Error while updating the record", err.message)
+        res.status(500).send({
+            message: "Some internal error occured"
+        })
+    }
 }
