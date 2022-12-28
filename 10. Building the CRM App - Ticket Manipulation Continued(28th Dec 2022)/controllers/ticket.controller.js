@@ -111,4 +111,10 @@ exports.getAllTickets = async (req, res) => {
 // If you become good at something, people will automatically come to 
 // pay you to do that.
 
-exports.getOneTicket = async (req, res) => { }
+exports.getOneTicket = async (req, res) => {
+    const ticket = await Ticket.findOne({
+        _id: req.params.id
+    })
+
+    res.status(200).send(objectConverter.ticketResponse(ticket))
+}

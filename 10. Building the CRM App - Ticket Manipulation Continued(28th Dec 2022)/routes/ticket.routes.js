@@ -8,4 +8,10 @@ module.exports = function (app) {
     app.put("/crm/api/tickets/:id",
         [authJwt.verifyToken],
         ticketController.updateTicket)
+    app.get("/crm/api/tickets",
+        [authJwt.verifyToken],
+        ticketController.getAllTickets)
+    app.get("/crm/api/tickets/:id",
+        [authJwt.verifyToken],
+        ticketController.getOneTicket)
 }
