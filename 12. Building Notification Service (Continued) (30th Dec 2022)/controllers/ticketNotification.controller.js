@@ -33,4 +33,26 @@ exports.acceptNotificationRequest = async (req, res) => {
  * This controller tells the client the current status of a
  * notification.
  */
-// exports.getNotificationStatus
+exports.getNotificationStatus = async (req, res) => {
+
+    const reqId = req.params.id
+
+    try {
+        const notification = await TicketNotificationModel.findOne({
+            ticketId: reqId
+        })
+
+        res.status(200).send({
+            requestId: notification.ticketId,
+            subject: notification.subject,
+            content: notification.content,
+            receipientEmails: notification.receipientEmails,
+            sentStatus: notification.sentStatus
+        })
+    } catch (err) {
+        console.log(`Error while fetching a notification request: ${err.message}`)
+        res.status(500).send({
+            message: "Internal Server Error!"
+        })
+    }
+}

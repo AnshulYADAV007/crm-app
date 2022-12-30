@@ -2,4 +2,5 @@ const notificationController = require("../controllers/ticketNotification.contro
 
 module.exports = function (app) {
     app.post("/notifiServ/api/notifications/", notificationController.acceptNotificationRequest)
+    app.get("/notifiServ/api/notifications/:id", notificationController.getNotificationStatus)
 }
