@@ -1,3 +1,4 @@
+require("./crons/cron")
 const dbConfig = require('./configs/db.config')
 const mongoose = require('mongoose')
 const express = require('express')
