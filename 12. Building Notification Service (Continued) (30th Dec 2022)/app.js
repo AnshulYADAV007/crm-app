@@ -1,5 +1,17 @@
-const cron = require("node-cron")
+const dbConfig = require('./configs/db.config')
+const mongoose = require('mongoose')
+const express = require('express')
 
-cron.schedule('*/5 * * * * *', () => console.log("Please take care of your eyes!"))
+const app = express()
+app.use(express.json())
 
-// second, minute, hour, day of month, month, day of week
+mongoose.connect(dbConfig.DB_URL,
+    () => { console.log("Connected to Mongo DB") },
+    err => { console.log("Error: ", err.message) }
+)
+
+require("./routes/ticketNotification.route")(app)
+
+app.listen(3030, () => {
+    console.log("Application started on the port num 3030")
+})
