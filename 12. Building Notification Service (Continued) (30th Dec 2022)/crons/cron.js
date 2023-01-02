@@ -3,7 +3,7 @@ const TicketNotificationModel = require("../models/ticketNotification.model")
 const EmailTransporter = require("../notifier/emailService")
 
 
-cron.schedule('*/5 * * * * *', async () => {
+cron.schedule('*/30 * * * * *', async () => {
     const notifications = await TicketNotificationModel.find({
         sentStatus: "UN_SENT"
     })
@@ -12,7 +12,7 @@ cron.schedule('*/5 * * * * *', async () => {
 
     notifications.forEach(notification => {
         const mailData = {
-            from: 'crm.notification.service.1992@gmail.com',
+            from: 'anshulyadav9898@gmail.com',
             to: notification.receipientEmails,
             subject: notification.subject,
             text: notification.content
