@@ -11,20 +11,21 @@ exports.connect = async () => {
             useUnifiedTopology: true,
             maxPoolSize: 10
         }
-        mongoose.connect(uri, mongooseOpt)
+        await mongoose.connect(uri, mongooseOpt)
     }
 }
 
-exports.closDatabase = async () => {
+exports.closeDatabase = async () => {
     await mongoose.connection.dropDatabase()
     await mongoose.connection.close()
     if (mongod) await mongod.stop()
 }
 
 exports.clearDataBase = async () => {
-    const collections = mongoose.connection.collections
+    const collections = await mongoose.connection.collections
     for (const name in collections) {
+        console.log(name)
         const collection = collections[name]
-        collection.deleteMany()
+        await collection.deleteMany()
     }
 }

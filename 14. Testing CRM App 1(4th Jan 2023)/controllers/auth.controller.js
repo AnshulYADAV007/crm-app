@@ -34,8 +34,6 @@ exports.signup = async (req, res) => {
             email: userCreated.email,
             userType: userCreated.userType,
             userStatus: userCreated.userStatus,
-            createdAt: userCreated.createdAt,
-            updatedAt: userCreated.updatedAt
         }
         res.status(201).send(postReponse)
     } catch (err) {
