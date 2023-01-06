@@ -1,0 +1,20 @@
+{
+  "name": "crm-app-1",
+  "version": "1.0.0",
+  "description": "Content from class on 20th Dec 2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --testEnvironment=node --runInBand --detectOpenHandles --coverage ./tests"
+  },
+  "author": "Anshul",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "jest": "^29.3.1",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb-memory-server": "^8.10.2",
+    "mongoose": "^6.8.1",
+    "node-rest-client": "^3.1.1"
+  }
+}
