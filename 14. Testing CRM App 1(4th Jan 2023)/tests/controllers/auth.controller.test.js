@@ -77,4 +77,56 @@ describe("SignIn", () => {
         })
 
     })
+
+    it('should not allow users who are not approved', async () => {
+        testPayload.userStatus = 'PENDING'
+        const userSpy = jest.spyOn(User, 'findOne')
+            .mockReturnValue(Promise.resolve(testPayload))
+        const req = mockRequest()
+        const res = mockResponse()
+        req.body = testPayload
+        await signin(req, res)
+        expect(userSpy).toHaveBeenCalled()
+        expect(res.status).toHaveBeenCalledWith(403)
+        expect(res.send).toHaveBeenCalledWith({
+            message: "Can't allow login as user is in status : [PENDING]"
+        })
+    })
+
+    it(`should fail if the user doesn't exist`, async () => {
+        const userSpy = jest.spyOn(User, 'findOne').mockReturnValue(null)
+        const req = mockRequest()
+        const res = mockResponse()
+        req.body = testPayload;
+        await signin(req, res)
+        expect(userSpy).toHaveBeenCalled()
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.send).toHaveBeenCalledWith({
+            message: "Failed! Userid doesn't exist!"
+        })
+    })
+
+    it(`should pass`, async () => {
+        testPayload.userStatus = "APPROVED"
+        const userSpy = jest.spyOn(User, "findOne")
+            .mockReturnValue(Promise.resolve(testPayload))
+        const bcryptSpy = jest.spyOn(bcrypt, 'compareSync')
+            .mockReturnValue(true)
+        const req = mockRequest()
+        const res = mockResponse()
+        req.body = testPayload
+        await signin(req, res)
+        expect(userSpy).toHaveBeenCalled()
+        expect(bcryptSpy).toHaveBeenCalled()
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.send).toHaveBeenCalledWith(
+            expect.objectContaining({
+                email: testPayload.email,
+                name: testPayload.name,
+                userId: testPayload.userId,
+                userTypes: testPayload.userType,
+                userStatus: testPayload.userStatus
+            })
+        )
+    })
 })
