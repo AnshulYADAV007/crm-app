@@ -118,6 +118,185 @@ describe("Find By Id", () => {
                 })
             ])
         )
+    })
+})
 
+describe('FindAll', () => {
+    it("should pass", async () => {
+        const userSpy = jest.spyOn(User, 'find')
+            .mockReturnValue(Promise.resolve([userTestPayload]));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = {}
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.send).toHaveBeenCalledWith(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    email: "test@relevel.com",
+                    name: "Test",
+                    userId: 1,
+                    userStatus: "APPROVED",
+                    userType: "CUSTOMER"
+                })
+            ])
+        );
+    })
+    it("should pass with userStatus", async () => {
+        const userSpy = jest.spyOn(User, 'find')
+            .mockReturnValue(Promise.resolve([userTestPayload]));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = { userStatus: "APPROVED" }
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.send).toHaveBeenCalledWith(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    email: "test@relevel.com",
+                    name: "Test",
+                    userId: 1,
+                    userStatus: "APPROVED",
+                    userType: "CUSTOMER"
+                })
+            ])
+        );
+    })
+    it("should pass with userType", async () => {
+        const userSpy = jest.spyOn(User, 'find')
+            .mockReturnValue(Promise.resolve([userTestPayload]));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = { userType: "CUSTOMER" }
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.send).toHaveBeenCalledWith(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    email: "test@relevel.com",
+                    name: "Test",
+                    userId: 1,
+                    userStatus: "APPROVED",
+                    userType: "CUSTOMER"
+                })
+            ])
+        );
+    })
+    it("should pass with userType and Status", async () => {
+        const userSpy = jest.spyOn(User, 'find')
+            .mockReturnValue(Promise.resolve([userTestPayload]));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = {
+            userType: "CUSTOMER",
+            userStatus: "APPROVED"
+        }
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.send).toHaveBeenCalledWith(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    email: "test@relevel.com",
+                    name: "Test",
+                    userId: 1,
+                    userStatus: "APPROVED",
+                    userType: "CUSTOMER"
+                })
+            ])
+        );
+    })
+    it("should pass with name", async () => {
+        const userSpy = jest.spyOn(User, 'find').mockReturnValue(Promise.resolve([userTestPayload]));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = {
+            name: "test"
+        }
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.send).toHaveBeenCalledWith(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    email: "test@relevel.com",
+                    name: "Test",
+                    userId: 1,
+                    userStatus: "APPROVED",
+                    userType: "CUSTOMER"
+                })
+            ])
+        );
+    })
+    it("should fail", async () => {
+        const userSpy = jest.spyOn(User, 'find')
+            .mockReturnValue(Promise.reject(new Error("error")));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = {}
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.send).toHaveBeenCalledWith({
+            message: "Some internal error occured"
+        });
+    })
+    it("should fail with userStatus", async () => {
+        const userSpy = jest.spyOn(User, 'find').mockReturnValue(Promise.reject(new Error("error")));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = { userStatus: "APPROVED" }
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.send).toHaveBeenCalledWith({
+            message: "Some internal error occured"
+        });
+    })
+    it("should fail with userType", async () => {
+        const userSpy = jest.spyOn(User, 'find')
+            .mockReturnValue(Promise.reject(new Error("error")));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = { userType: "CUSTOMER" }
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.send).toHaveBeenCalledWith({
+            message: "Some internal error occured"
+        });
+    })
+    it("should fail with userType and Status", async () => {
+        const userSpy = jest.spyOn(User, 'find')
+            .mockReturnValue(Promise.reject(new Error("error")));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = {
+            userType: "CUSTOMER",
+            userStatus: "APPROVED"
+        }
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.send).toHaveBeenCalledWith({
+            message: "Some internal error occured"
+        });
+    })
+    it("should fail with name", async () => {
+        const userSpy = jest.spyOn(User, 'find').mockReturnValue(Promise.reject(new Error("error")));
+        const req = mockRequest();
+        const res = mockResponse();
+        req.query = {
+            name: "test"
+        }
+        await findAll(req, res);
+        expect(userSpy).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.send).toHaveBeenCalledWith({
+            message: "Some internal error occured"
+        });
     })
 })
