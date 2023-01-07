@@ -124,7 +124,7 @@ describe("SignIn", () => {
                 email: testPayload.email,
                 name: testPayload.name,
                 userId: testPayload.userId,
-                userTypes: testPayload.userType,
+                userType: testPayload.userType,
                 userStatus: testPayload.userStatus
             })
         )

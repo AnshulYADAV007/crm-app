@@ -45,4 +45,4 @@ require("./routes/ticket.routes")(app)
 
 app.get("/", (req, res) => res.send("Hi"))
 
-app.listen(3000, () => console.log("Listening at localhost:3000"))
+module.exports = app.listen(3000, () => console.log("Listening at localhost:3000"))
