@@ -2,7 +2,7 @@ const request = require('supertest')
 const app = require("../../app")
 const db = require("../db")
 
-beforeAll(async () => await db.clearDataBase)
+beforeAll(async () => await db.clearDataBase())
 afterAll(async () => {
     await db.closeDatabase()
     app.close()
