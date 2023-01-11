@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: false }))
 
 require("./routes/auth.routes")(app)
 require("./routes/companies.routes")(app)
+require("./routes/students.routes")(app)
 
 app.listen(process.env.PORT, () => console.log("Listening at localhost:3500"))
 

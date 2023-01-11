@@ -1,22 +1,22 @@
-const Company = require("../models/Company")
-const { ADMIN, COMPANY } = require("../constants/roles")
+const Student = require("../models/Student")
+const { ADMIN, COMPANY, STUDENT } = require("../constants/roles")
 
 exports.findAll = (req, res) => {
-    if (req.user.role === COMPANY)
+    if (req.user.role === STUDENT)
         return res.status(401).send({ message: "Access Denied" })
 
-    Company.find({})
-        .then(companies => res.status(200).send(companies))
+    Student.find({})
+        .then(students => res.status(200).send(students))
         .catch(error => res.status(400)
             .send({ message: "Internal Server Error!" }))
 }
 
 exports.findById = (req, res) => {
-    if (req.user.role === COMPANY)
+    if (req.user.role === STUDENT)
         return res.status(401).send({ message: "Access Denied" })
 
-    Company.findById(req.params.id)
-        .then(company => res.status(200).send(company))
+    Student.findById(req.params.id)
+        .then(student => res.status(200).send(student))
         .catch(error => res.status(400)
             .send({ message: "Internal Server Error!" }))
 }
@@ -25,7 +25,7 @@ exports.delete = (req, res) => {
     if (req.user.role !== ADMIN)
         return res.status(401).send({ message: 'Access denied.' });
 
-    Company.deleteOne({ _id: req.params.id })
+    Student.deleteOne({ _id: req.params.id })
         .then(success => res.status(200)
             .send(success.deletedCount.toString()))
         .catch(error => res.status(400)
