@@ -11,6 +11,9 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+require("./routes/auth.routes")(app)
+require("./routes/companies.routes")(app)
+
 app.listen(process.env.PORT, () => console.log("Listening at localhost:3500"))
 
 module.exports = app
