@@ -11,6 +11,6 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.listen(3500, () => console.log("Listening at localhost:3500"))
+app.listen(process.env.PORT, () => console.log("Listening at localhost:3500"))
 
 module.exports = app

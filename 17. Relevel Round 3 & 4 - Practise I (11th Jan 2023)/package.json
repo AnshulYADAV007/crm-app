@@ -9,8 +9,10 @@
   "author": "Anshul",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "express": "^3.4.4",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.3"
   }
 }
