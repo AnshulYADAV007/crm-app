@@ -1,0 +1,16 @@
+{
+  "name": "relevel-hiring",
+  "version": "1.0.0",
+  "description": "This the backend desing for the hiring portal of the Relevel plateform.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anshul",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^3.4.4",
+    "mongoose": "^6.8.3"
+  }
+}
