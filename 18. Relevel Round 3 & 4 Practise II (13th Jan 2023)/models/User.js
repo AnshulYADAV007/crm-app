@@ -128,6 +128,12 @@ const UserSchema = new Schema({
             ref: 'Symptoms',
         },
     ],
+    appointments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Appointment"
+        }
+    ]
 });
 
 // This creates our model from the above schema, using mongoose's model method
