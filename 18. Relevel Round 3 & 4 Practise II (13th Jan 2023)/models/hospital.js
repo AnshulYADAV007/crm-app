@@ -11,12 +11,12 @@ const Schema = mongoose.Schema;
 // phone number and fax number
 
 
-// new ClinicSchema object for login purposes
-const ClinicSchema = new Schema({
-    clinicname: {
+// new HospitalSchema object for login purposes
+const HospitalSchema = new Schema({
+    hospitalname: {
         type: String,
         trim: true,
-        required: 'Clinic name is required',
+        required: 'Hospital name is required',
     },
     address: {
         type: String,
@@ -69,7 +69,7 @@ const ClinicSchema = new Schema({
 
 // This creates our model from the above schema, using mongoose's model method
 
-const Clinic = mongoose.model('Clinic', ClinicSchema);
+const Hospital = mongoose.model('Hospital', HospitalSchema);
 
-// Export the Clinic model
-module.exports = Clinic;
+// Export the Hospital model
+module.exports = Hospital;

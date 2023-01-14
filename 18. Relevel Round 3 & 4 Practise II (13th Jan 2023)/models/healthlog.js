@@ -17,7 +17,7 @@ const HealthLogSchema = new Schema({
     date: {
         type: String,
         trim: true,
-        required: 'First name is required',
+        required: 'Date is required',
     },
     doctor: {
         type: String,

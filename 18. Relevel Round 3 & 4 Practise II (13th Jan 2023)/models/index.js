@@ -2,7 +2,7 @@
 
 module.exports = {
     User: require('./User'),
-    Clinic: require('./clinic'),
+    Hospital: require('./hospital'),
     Doctor: require('./doctor'),
     HealthLog: require('./healthlog'),
     Appointment: require('./appointment'),
