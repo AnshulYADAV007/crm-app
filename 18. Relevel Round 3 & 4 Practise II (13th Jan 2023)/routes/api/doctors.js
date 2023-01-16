@@ -1,12 +1,12 @@
 const doctorsController = require("../../controllers/doctorsController")
 const router = require("express").Router()
 
-// Matches with "/api/doctors"
+// Matches with "/doctors"
 router.route("/")
     .get(doctorsController.findAll)
     .post(doctorsController.create);
 
-// Matches with "/api/doctors/:id"
+// Matches with "/doctors/:id"
 router.route("/:id")
     .delete(doctorsController.remove)
     .get(doctorsController.findById)
