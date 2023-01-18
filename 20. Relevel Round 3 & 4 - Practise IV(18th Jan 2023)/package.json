@@ -1,0 +1,15 @@
+{
+  "name": "delivery-service",
+  "version": "1.0.0",
+  "description": "This is the code for the delivery sercive to store the orders",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anshul Yadav",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.4"
+  }
+}
