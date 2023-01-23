@@ -105,13 +105,24 @@ function Login() {
         const data = {
             name: username,
             userId: userId,
-            email: email.value,
+            email: email,
             userType: userType,
             password: password
         }
         e.preventDefault()
 
-        axios.post(BASE_URL + 'crm/api/auth/signup', data)
+        axios.post(BASE_URL + '/crm/api/auth/signup', data)
+            .then(response => {
+                if (response.status === 201) {
+                    window.location.href = "/"
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 400)
+                    setMessage(error.response.data.message)
+                else
+                    console.log(error)
+            })
     }
 
     const loginContent = () => {
