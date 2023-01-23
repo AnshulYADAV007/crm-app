@@ -7,6 +7,8 @@ const app = express()
 const bcrypt = require('bcryptjs')
 const constants = require("./utils/constants")
 const cors = require('cors')
+app.use(cors())
+
 async function init() {
     let user = await User.findOne({ userId: "admin" })
 
@@ -32,7 +34,7 @@ async function init() {
 
 mongoose.connect(dbConfig.DB_URL)
 app.use(express.json())
-app.use(cors())
+
 const db = mongoose.connection
 db.on("error", () => console.log("Can't connect to DB"))
 db.once("open", () => {
