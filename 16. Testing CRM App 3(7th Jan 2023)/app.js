@@ -6,6 +6,7 @@ const User = require("./models/user.model")
 const app = express()
 const bcrypt = require('bcryptjs')
 const constants = require("./utils/constants")
+const cors = require('cors')
 async function init() {
     let user = await User.findOne({ userId: "admin" })
 
@@ -31,7 +32,7 @@ async function init() {
 
 mongoose.connect(dbConfig.DB_URL)
 app.use(express.json())
-
+app.use(cors())
 const db = mongoose.connection
 db.on("error", () => console.log("Can't connect to DB"))
 db.once("open", () => {
@@ -45,4 +46,4 @@ require("./routes/ticket.routes")(app)
 
 app.get("/", (req, res) => res.send("Hi"))
 
-module.exports = app.listen(3000, () => console.log("Listening at localhost:3000"))
+module.exports = app.listen(7500, () => console.log("Listening at localhost:7500"))
