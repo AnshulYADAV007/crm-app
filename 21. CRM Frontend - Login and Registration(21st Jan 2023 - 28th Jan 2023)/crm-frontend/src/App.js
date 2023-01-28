@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import Customer from "./pages/Customer";
 import Engineer from "./pages/Engineer";
+import NotFound from "./pages/NotFound";
+import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
@@ -18,6 +20,15 @@ function App() {
           element={
             <Suspense fallback={<div className="loader"></div>}>
               <Login />
+            </Suspense>
+          }
+        />
+        <Route
+          exact
+          path="/unauthorized"
+          element={
+            <Suspense fallback={<div className="loader"></div>}>
+              <Unauthorized />
             </Suspense>
           }
         />
@@ -45,6 +56,14 @@ function App() {
           element={
             <Suspense fallback={<div className="loader"></div>}>
               <Engineer />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/*"
+          element={
+            <Suspense fallback={<div className="loader"></div>}>
+              <NotFound />
             </Suspense>
           }
         />
