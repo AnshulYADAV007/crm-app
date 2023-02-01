@@ -69,7 +69,7 @@ function Login() {
         e.preventDefault()
         axios.post(BASE_URL + '/crm/api/auth/signin', data)
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     if (response.data.message) {
                         setMessage(response.data.message)
                     } else {
@@ -89,7 +89,7 @@ function Login() {
                 }
             })
             .catch(error => {
-                if (error.response.status == 400 || error.response.status == 401)
+                if (error.response.status === 400 || error.response.status === 401)
                     setMessage(error.response.data.message)
                 else
                     console.log(error)

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import not from '../assets/error-403.jpg'
-
+import React from "react";
 const Unauthorized = () => {
     const navigate = useNavigate()
     const goBack = () => navigate(-1)

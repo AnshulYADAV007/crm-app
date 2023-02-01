@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import NOT_FILE_NAME from '../assets/error-404.jpg'
+import React from 'react'
 
 const NotFound = () => {
     const navigate = useNavigate()
