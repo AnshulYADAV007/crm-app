@@ -1,6 +1,6 @@
 import { CSidebar, CSidebarNav, CNavTitle, CNavItem } from '@coreui/react';
 import CIcon from '@coreui/icons-react'
-import { cilHome } from '@coreui/icons'
+import { cilHome, cilAccountLogout } from '@coreui/icons'
 import '../styles/sidebar.css'
 import { Link } from 'react-router-dom';
 import React from "react"
@@ -24,7 +24,7 @@ function Sidebar() {
 
                 <div onClick={logout}>
                     <CNavItem href="#">
-                        <i className='bi bi-box-arrow-left text-white m-2'></i>
+                        <CIcon customeClassName='nav-icon' icon={cilAccountLogout}></CIcon>
                         <div className='text-decoration-none text-white mx-3'>Logout</div>
                     </CNavItem>
                 </div>
