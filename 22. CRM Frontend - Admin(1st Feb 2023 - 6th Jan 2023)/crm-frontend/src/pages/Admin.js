@@ -13,6 +13,7 @@ function Admin() {
     const [userList, setUserList] = useState([])
     const [userDetail, setUserDetail] = useState({})
     const [userModal, setUserModal] = useState(false)
+    const [ticketStatusCount, setTicketStatusCount] = useState({})
     const [message, setMessage] = useState("")
     const showUserModal = () => setUserModal(true)
     const closeUserModal = () => {
@@ -36,10 +37,43 @@ function Admin() {
             console.log(error)
         })
     }
+    const updateTicketCounts = (tickets) => {
+        const data = {
+            open: 0,
+            closed: 0,
+            in_progress: 0,
+            blocked: 0,
+        }
+        tickets.map(x => {
+            if (x.status === "OPEN") data.open++
+            else if (x.status === 'IN_PROGRESS') data.in_progress++
+            else if (x.status === 'BLOCKED') data.blocked++
+            else if (x.status === 'CLOSED') data.closed++
+        })
+        setTicketStatusCount(data)
+    }
+
+    const fetchTickets = () => {
+        axios.get(BASE_URL + '/crm/api/tickets/',
+            {
+                headers: {
+                    'x-access-token': localStorage.getItem('token')
+                }
+            }, {
+            'userId': localStorage.getItem('userId')
+        }).then(function (response) {
+            if (response.status === 200) {
+                updateTicketCounts(response.data)
+            }
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
 
     useEffect(() => {
         (async () => {
             fetchUsers("")
+            fetchTickets()
         })()
     }, [])
 
@@ -103,7 +137,7 @@ function Admin() {
                                         <hr />
                                         <div className="row">
                                             <div className="col">
-                                                <h1 className="col text-dark mx-4">8</h1>
+                                                <h1 className="col text-dark mx-4">{ticketStatusCount.open}</h1>
                                             </div>
                                             <div className="col">
                                                 <div style={{ width: 40, height: 40 }}>
@@ -125,7 +159,7 @@ function Admin() {
                                         <h5 className="card-subtitle mb-2"><i class="bi bi-lightning-charge text-warning mx-2"></i>Progress </h5>
                                         <hr />
                                         <div className="row">
-                                            <div className="col">  <h1 className="col text-dark mx-4">4</h1> </div>
+                                            <div className="col">  <h1 className="col text-dark mx-4">{ticketStatusCount.in_progress}</h1> </div>
                                             <div className="col">
                                                 <div style={{ width: 40, height: 40 }}>
                                                     <CircularProgressbar value={80} styles={buildStyles({
@@ -146,7 +180,7 @@ function Admin() {
                                         <h5 className="card-subtitle mb-2"><i class="bi bi-check2-circle text-success mx-2"></i>Closed </h5>
                                         <hr />
                                         <div className="row">
-                                            <div className="col">  <h1 className="col text-dark mx-4">2</h1> </div>
+                                            <div className="col">  <h1 className="col text-dark mx-4">{ticketStatusCount.closed}</h1> </div>
                                             <div className="col">
                                                 <div style={{ width: 40, height: 40 }}>
                                                     <CircularProgressbar value={80} styles={buildStyles({
@@ -167,7 +201,7 @@ function Admin() {
                                         <h5 className="card-subtitle mb-2"><i class="bi bi-slash-circle text-secondary mx-2"></i>Blocked </h5>
                                         <hr />
                                         <div className="row">
-                                            <div className="col">  <h1 className="col text-dark mx-4">2</h1> </div>
+                                            <div className="col">  <h1 className="col text-dark mx-4">{ticketStatusCount.blocked}</h1> </div>
                                             <div className="col">
                                                 <div style={{ width: 40, height: 40 }}>
                                                     <CircularProgressbar value={20} styles={buildStyles({
