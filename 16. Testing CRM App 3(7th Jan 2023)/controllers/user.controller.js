@@ -130,6 +130,8 @@ exports.update = async (req, res) => {
         const user = await User.findOneAndUpdate({
             userId: userIdReq
         }, {
+            userType: req.body.userType,
+            name: req.body.name,
             userStatus: req.body.userStatus
         }).exec()
         if (user) {

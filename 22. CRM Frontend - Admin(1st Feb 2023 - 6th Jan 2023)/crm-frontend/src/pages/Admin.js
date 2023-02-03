@@ -13,6 +13,7 @@ function Admin() {
     const [userList, setUserList] = useState([])
     const [userDetail, setUserDetail] = useState({})
     const [userModal, setUserModal] = useState(false)
+    const [message, setMessage] = useState("")
     const showUserModal = () => setUserModal(true)
     const closeUserModal = () => {
         setUserModal(false)
@@ -25,7 +26,11 @@ function Admin() {
             }
         }).then(function (response) {
             if (response.status === 200) {
-                setUserList(response.data)
+                if (userId) {
+                    setUserDetail(response.data[0])
+                    showUserModal()
+                } else
+                    setUserList(response.data)
             }
         }).catch(function (error) {
             console.log(error)
@@ -38,7 +43,34 @@ function Admin() {
         })()
     }, [])
 
-    const updateUserDetail = () => { }
+    const updateUserDetail = () => {
+        const data = {
+            'userType': userDetail.userType,
+            'userStatus': userDetail.userStatus,
+            'name': userDetail.name
+        }
+        axios.put(BASE_URL + '/crm/api/users/' + userDetail.userId,
+            data,
+            {
+                headers: {
+                    'x-access-token': localStorage.getItem('token')
+                }
+            }, {
+            'userId': localStorage.getItem('userId')
+        }).then(function (response) {
+            if (response.status === 200) {
+                setMessage(response.message)
+                let idx = userList.findIndex((obj => obj.userId === userDetail.userId))
+                userList[idx] = userDetail
+                closeUserModal()
+            }
+        }).catch(function (error) {
+            if (error.status === 400)
+                setMessage(error.message)
+            else
+                console.log(error)
+        })
+    }
 
     const changeUserDetail = (e) => {
         if (e.target.name === 'status')
@@ -48,6 +80,7 @@ function Admin() {
         else if (e.target.name === 'type')
             userDetail.userType = e.target.value
         setUserDetail(userDetail)
+        setUserModal(e.target.value)
     }
 
     return (
@@ -239,13 +272,13 @@ function Admin() {
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon2">Email</span>
-                                                <input type="text" className="form-control" name="name" value={userDetail.email} onChange={changeUserDetail} disabled />
+                                                <input type="text" className="form-control" name="email" value={userDetail.email} onChange={changeUserDetail} disabled />
 
                                             </div>
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon2">Type</span>
-                                                <select className="form-select" name="type" value={userDetail.userTypes} onChange={changeUserDetail}>
+                                                <select className="form-select" name="type" value={userDetail.userType} onChange={changeUserDetail}>
                                                     <option value="ADMIN">ADMIN</option>
                                                     <option value="CUSTOMER">CUSTOMER</option>
                                                     <option value="ENGINEER">ENGINEER</option>
@@ -271,6 +304,9 @@ function Admin() {
                                 <Modal.Footer>
                                     <Button variant="secondary" onClick={() => closeUserModal()}>
                                         Close
+                                    </Button>
+                                    <Button variant="primary" onClick={() => updateUserDetail()}>
+                                        Update
                                     </Button>
                                 </Modal.Footer>
                             </Modal>
