@@ -4,23 +4,50 @@ import MaterialTable from "@material-table/core"
 import { ExportCsv, ExportPdf } from '@material-table/exporters'
 import '../styles/admin.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+import { Modal, Button } from "react-bootstrap";
+import axios from "axios";
+
+const BASE_URL = process.env.REACT_APP_SERVER_URL
 
 function Admin() {
-    const [userList, setUserList] = useState([{
-        "userId": 'a',
-        'name': 'b',
-        'email': 'a',
-        'userTypes': "ADMIN",
-        'userStatus': 'APPROVED'
-    }])
+    const [userList, setUserList] = useState([])
+    const [userDetail, setUserDetail] = useState({})
+    const [userModal, setUserModal] = useState(false)
+    const showUserModal = () => setUserModal(true)
+    const closeUserModal = () => {
+        setUserModal(false)
+        setUserDetail({})
+    }
     const fetchUsers = (userId) => {
-        setUserList([{
-            "userId": 'a',
-            'name': 'b',
-            'email': 'a',
-            'userTypes': "ADMIN",
-            'userStatus': 'APPROVED'
-        }])
+        axios.get(BASE_URL + '/crm/api/users/' + userId, {
+            headers: {
+                'x-access-token': localStorage.getItem("token")
+            }
+        }).then(function (response) {
+            if (response.status === 200) {
+                setUserList(response.data)
+            }
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
+
+    useEffect(() => {
+        (async () => {
+            fetchUsers("")
+        })()
+    }, [])
+
+    const updateUserDetail = () => { }
+
+    const changeUserDetail = (e) => {
+        if (e.target.name === 'status')
+            userDetail.userStatus = e.target.value
+        else if (e.target.name === 'name')
+            userDetail.name = e.target.value
+        else if (e.target.name === 'type')
+            userDetail.userType = e.target.value
+        setUserDetail(userDetail)
     }
 
     return (
@@ -146,7 +173,7 @@ function Admin() {
                                 },
                                 {
                                     title: "ROLE",
-                                    field: "userTypes",
+                                    field: "userType",
                                     lookup: {
                                         "ADMIN": "ADMIN",
                                         "CUSTOMER": "CUSTOMER",
@@ -187,7 +214,68 @@ function Admin() {
                         />
 
 
-                        {/* Card for editing the users */}
+                        {/* Modal for editing the users */}
+                        {userModal ? (
+                            <Modal
+                                show={userModal}
+                                onHide={closeUserModal}
+                                backdrop="static"
+                                keyboard={false}
+                                centered
+                            >
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Edit Details</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <form onSubmit={updateUserDetail} >
+
+                                        <div className="p-1">
+                                            <h5 className="card-subtitle mb-2 text-primary lead">User ID: {userDetail.userId}</h5>
+                                            <hr />
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon2">Name</span>
+                                                <input type="text" className="form-control" name="name" value={userDetail.name} onChange={changeUserDetail} />
+
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon2">Email</span>
+                                                <input type="text" className="form-control" name="name" value={userDetail.email} onChange={changeUserDetail} disabled />
+
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon2">Type</span>
+                                                <select className="form-select" name="type" value={userDetail.userTypes} onChange={changeUserDetail}>
+                                                    <option value="ADMIN">ADMIN</option>
+                                                    <option value="CUSTOMER">CUSTOMER</option>
+                                                    <option value="ENGINEER">ENGINEER</option>
+                                                </select>
+
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon2">Status</span>
+                                                <select name="status" className="form-select"
+                                                    value={userDetail.userStatus} onChange={changeUserDetail}>
+                                                    <option value="APPROVED">APPROVED</option>
+                                                    <option value="REJECTED">REJECTED</option>
+                                                    <option value="PENDING">PENDING</option>
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={() => closeUserModal()}>
+                                        Close
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+                        ) : ("")
+                        }
                     </div>
                 </div>
             </div>
