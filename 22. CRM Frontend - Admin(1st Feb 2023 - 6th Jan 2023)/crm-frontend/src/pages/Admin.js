@@ -231,7 +231,6 @@ function Admin() {
                                 {
                                     title: "Name",
                                     field: "name",
-
                                 },
                                 {
                                     title: "EMAIL",
