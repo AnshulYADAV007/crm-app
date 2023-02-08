@@ -92,7 +92,7 @@ function Admin() {
     return (
         <div className="row bg-light">
             <div className="col-1"><Sidebar home='/' /></div>
-            <div className="col py-5 vh-100">
+            <div className="col my-4 vh-100">
                 <div className="container">
                     <div>
                         {/*Main Admin DashBoard*/}
