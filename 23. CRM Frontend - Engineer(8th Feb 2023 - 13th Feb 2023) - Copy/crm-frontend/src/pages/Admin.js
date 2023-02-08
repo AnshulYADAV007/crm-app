@@ -6,6 +6,8 @@ import '../styles/admin.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
+import fetchTickets from "../utils/fetchTickets";
+import updateTicketCounts from "../utils/updateTicketCounts";
 
 const BASE_URL = process.env.REACT_APP_SERVER_URL
 
@@ -37,43 +39,12 @@ function Admin() {
             console.log(error)
         })
     }
-    const updateTicketCounts = (tickets) => {
-        const data = {
-            open: 0,
-            closed: 0,
-            in_progress: 0,
-            blocked: 0,
-        }
-        tickets.map(x => {
-            if (x.status === "OPEN") data.open++
-            else if (x.status === 'IN_PROGRESS') data.in_progress++
-            else if (x.status === 'BLOCKED') data.blocked++
-            else if (x.status === 'CLOSED') data.closed++
-        })
-        setTicketStatusCount(data)
-    }
-
-    const fetchTickets = () => {
-        axios.get(BASE_URL + '/crm/api/tickets/',
-            {
-                headers: {
-                    'x-access-token': localStorage.getItem('token')
-                }
-            }, {
-            'userId': localStorage.getItem('userId')
-        }).then(function (response) {
-            if (response.status === 200) {
-                updateTicketCounts(response.data)
-            }
-        }).catch(function (error) {
-            console.log(error)
-        })
-    }
 
     useEffect(() => {
         (async () => {
             fetchUsers("")
-            fetchTickets()
+            let tickets = await fetchTickets(localStorage)
+            updateTicketCounts(tickets, setTicketStatusCount)
         })()
     }, [])
 
@@ -141,7 +112,7 @@ function Admin() {
                                             </div>
                                             <div className="col">
                                                 <div style={{ width: 40, height: 40 }}>
-                                                    <CircularProgressbar value={20} styles={buildStyles({
+                                                    <CircularProgressbar value={(ticketStatusCount.open / ticketStatusCount.total) * 100} styles={buildStyles({
                                                         textColor: "red",
                                                         pathColor: "darkblue",
                                                     })} />
@@ -162,7 +133,7 @@ function Admin() {
                                             <div className="col">  <h1 className="col text-dark mx-4">{ticketStatusCount.in_progress}</h1> </div>
                                             <div className="col">
                                                 <div style={{ width: 40, height: 40 }}>
-                                                    <CircularProgressbar value={80} styles={buildStyles({
+                                                    <CircularProgressbar value={(ticketStatusCount.in_progress / ticketStatusCount.total) * 100} styles={buildStyles({
                                                         textColor: "red",
                                                         pathColor: "darkgoldenrod",
                                                     })} />
@@ -183,7 +154,7 @@ function Admin() {
                                             <div className="col">  <h1 className="col text-dark mx-4">{ticketStatusCount.closed}</h1> </div>
                                             <div className="col">
                                                 <div style={{ width: 40, height: 40 }}>
-                                                    <CircularProgressbar value={80} styles={buildStyles({
+                                                    <CircularProgressbar value={(ticketStatusCount.closed / ticketStatusCount.total) * 100} styles={buildStyles({
                                                         textColor: "red",
                                                         pathColor: "darkolivegreen",
                                                     })} />
@@ -204,7 +175,7 @@ function Admin() {
                                             <div className="col">  <h1 className="col text-dark mx-4">{ticketStatusCount.blocked}</h1> </div>
                                             <div className="col">
                                                 <div style={{ width: 40, height: 40 }}>
-                                                    <CircularProgressbar value={20} styles={buildStyles({
+                                                    <CircularProgressbar value={(ticketStatusCount.blocked / ticketStatusCount.total) * 100} styles={buildStyles({
                                                         textColor: "red",
                                                         pathColor: "black",
                                                     })} />
