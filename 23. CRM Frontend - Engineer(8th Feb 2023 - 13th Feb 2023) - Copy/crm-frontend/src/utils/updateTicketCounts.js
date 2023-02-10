@@ -6,12 +6,13 @@ const updateTicketCounts = (tickets, setTicketStatusCount) => {
         blocked: 0,
         total: 0
     }
-    tickets.map(x => {
-        if (x.status === "OPEN") data.open++
-        else if (x.status === 'IN_PROGRESS') data.in_progress++
-        else if (x.status === 'BLOCKED') data.blocked++
-        else if (x.status === 'CLOSED') data.closed++
-    })
+    for (let ticket of tickets) {
+        if (ticket.status === "OPEN") data.open++
+        else if (ticket.status === 'IN_PROGRESS') data.in_progress++
+        else if (ticket.status === 'BLOCKED') data.blocked++
+        else if (ticket.status === 'CLOSED') data.closed++
+    }
+
     data.total = data.open + data.in_progress + data.blocked + data.closed
     data.total = (data.total === 0) ? 1 : data.total
     setTicketStatusCount(data)

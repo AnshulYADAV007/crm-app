@@ -1,5 +1,4 @@
 import axios from "axios"
-import updateTicketCounts from "./updateTicketCounts"
 
 const BASE_URL = process.env.REACT_APP_SERVER_URL
 

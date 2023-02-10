@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import TicketsCard from "../components/TicketsCard";
 import MaterialTable from '@material-table/core'
 import { ExportCsv, ExportPdf } from "@material-table/exporters";
+import fetchTickets from "../utils/fetchTickets";
+import updateTicketCounts from "../utils/updateTicketCounts";
 
 function Engineer() {
     const [ticketUpdateModal, setTicketUpdateModal] = useState(false)
@@ -14,6 +16,15 @@ function Engineer() {
         total: 1
     })
     const [message, setMessage] = useState("")
+    const [ticketDetails, setTicketDetails] = useState([])
+
+    useEffect(() => {
+        (async () => {
+            let tickets = await fetchTickets(localStorage)
+            updateTicketCounts(tickets, setTicketStatusCount)
+            setTicketDetails(tickets)
+        })()
+    }, [])
 
     return (
         <div className="bg-light">
@@ -63,8 +74,10 @@ function Engineer() {
 
                 </div>
                 <hr />
-                <p class="text-success">{message}</p>
+                <p className="text-success">{message}</p>
                 <MaterialTable
+                    data={ticketDetails}
+                    title="TICKETS ASSIGNED TO YOU"
                     columns={[
                         {
                             title: "Ticket ID",
@@ -103,6 +116,24 @@ function Engineer() {
                             },
                         },
                     ]}
+                    options={{
+                        filtering: true,
+                        sorting: true,
+                        exportMenu: [{
+                            label: 'Export PDF',
+                            exportFunc: (cols, datas) => ExportPdf(cols, datas, 'ticketRecords')
+                        }, {
+                            label: 'Export CSV',
+                            exportFunc: (cols, datas) => ExportCsv(cols, datas, 'userRecords')
+                        }],
+                        headerStyle: {
+                            backgroundColor: '#106cfc',
+                            color: '#FFF'
+                        },
+                        rowStyle: {
+                            backgroundColor: '#EEE'
+                        }
+                    }}
                 />
             </div>
         </div>

@@ -6,7 +6,7 @@ const TicketsCard = (props) => {
         <div className="col-xs-12 col-lg-3 col-md-6 my-1">
             <div className={`card  cardItem shadow  ${props.color} text-dark bg-opacity-25 ${props.borders}`} style={{ width: 15 + 'rem' }}>
                 <div className="card-body">
-                    <h5 className="card-subtitle mb-2"><i class={`bi ${props.icon} text-primary mx-2`}></i>{props.type}</h5>
+                    <h5 className="card-subtitle mb-2"><i className={`bi ${props.icon} text-primary mx-2`}></i>{props.type}</h5>
                     <hr />
                     <div className="row">
                         <div className="col">
