@@ -89,12 +89,12 @@ exports.updateTicket = async (req, res) => {
             userId: ticket.reporter
         })
 
-        sendEmail(ticket._id,
-            `Ticket with id: ${ticket._id} updated`,
-            ticket.description,
-            savedUser.email + ',' + engineer.email + "," + reporter.email,
-            savedUser.email
-        )
+        // sendEmail(ticket._id,
+        //     `Ticket with id: ${ticket._id} updated`,
+        //     ticket.description,
+        //     savedUser.email + ',' + engineer.email + "," + reporter.email,
+        //     savedUser.email
+        // )
 
         res.status(200).send(objectConverter.ticketResponse(ticket))
 

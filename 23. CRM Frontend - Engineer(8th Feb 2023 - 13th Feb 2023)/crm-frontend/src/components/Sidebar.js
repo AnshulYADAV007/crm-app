@@ -15,13 +15,13 @@ function Sidebar() {
                     CRM App
                 </CNavTitle>
 
-                <CNavItem href='#'>
+                <CNavItem>
                     <i className="bi bi-house text-white m-2"></i>
                     <Link to="/admin" className='text-decoration-none text-white mx-3'>Home</Link>
                 </CNavItem>
 
                 <div onClick={logout}>
-                    <CNavItem href="#">
+                    <CNavItem>
                         <i className="bi bi-box-arrow-left text-white m-2"></i>
                         <div className='text-decoration-none text-white mx-3'>Logout</div>
                     </CNavItem>
