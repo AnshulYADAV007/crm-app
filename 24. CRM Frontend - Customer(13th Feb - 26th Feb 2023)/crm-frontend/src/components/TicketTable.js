@@ -3,7 +3,7 @@ import MaterialTable from "@material-table/core"
 import { ExportCsv, ExportPdf } from "@material-table/exporters"
 
 function TicketTable(props) {
-    returns(
+    return (
         <MaterialTable
             onRowClick={(event, rowData) => props.editTicket(rowData)}
             data={props.ticketDetails}

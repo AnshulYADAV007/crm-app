@@ -33,12 +33,12 @@ exports.createTicket = async (req, res) => {
             engineer.ticketsAssigned.push(ticket._id)
             await engineer.save()
 
-            sendEmail(ticket._id,
-                `Ticket with id : ${ticket._id} created`,
-                ticket.description,
-                user.email + "," + engineer.email,
-                user.email
-            )
+            // sendEmail(ticket._id,
+            //     `Ticket with id : ${ticket._id} created`,
+            //     ticket.description,
+            //     user.email + "," + engineer.email,
+            //     user.email
+            // )
 
             res.status(201).send(objectConverter.ticketResponse(ticket))
         }
