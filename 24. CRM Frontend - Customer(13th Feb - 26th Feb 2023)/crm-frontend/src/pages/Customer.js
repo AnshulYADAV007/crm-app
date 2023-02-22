@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 import TicketsCard from "../components/TicketsCard";
 import fetchTickets from "../utils/fetchTickets";
 import updateTicketCounts from "../utils/updateTicketCounts";
-import '../styles/engineer.css'
+import '../styles/customer.css'
 import axios from "axios";
 import TicketTable from "../components/TicketTable";
 import EditTicketModal from "../components/EditTicketModal";
@@ -114,7 +114,7 @@ function Customer() {
                     <p className="text-muted text-center">Take a quick look at your dashboard.</p>
                 </div>
                 {/* cards */}
-                <div className="row my-4 mx-2 text-center">
+                <div className="text-center cards">
                     {/* Open */}
                     <TicketsCard
                         color='bg-primary'

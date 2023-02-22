@@ -9,21 +9,21 @@ function Sidebar() {
     }
 
     return (
-        <CSidebar unfoldable className='vh-100 bg-black'>
-            <CSidebarNav>
-                <CNavTitle className='text-light fw-normal'>
+        <CSidebar unfoldable className='sidebar vh-100 bg-black'>
+            <CSidebarNav className='sidebar-nav'>
+                <CNavTitle className='sidebar-title text-white'>
                     CRM App
                 </CNavTitle>
 
-                <CNavItem>
-                    <i className="bi bi-house text-white m-2"></i>
-                    <Link to="/admin" className='text-decoration-none text-white mx-3'>Home</Link>
+                <CNavItem className='sidebar-item'>
+                    <i className="bi bi-house text-white"></i>
+                    <Link to="/admin" className='text-decoration-none text-white'>Home</Link>
                 </CNavItem>
 
                 <div onClick={logout}>
-                    <CNavItem>
-                        <i className="bi bi-box-arrow-left text-white m-2"></i>
-                        <div className='text-decoration-none text-white mx-3'>Logout</div>
+                    <CNavItem className='sidebar-item'>
+                        <i className="bi bi-box-arrow-left text-white"></i>
+                        <div className='text-decoration-none text-white'>Logout</div>
                     </CNavItem>
                 </div>
             </CSidebarNav>
