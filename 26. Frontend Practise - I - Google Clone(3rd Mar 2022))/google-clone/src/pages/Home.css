@@ -36,6 +36,7 @@
 
 .home_headerRight>.MuiSvgIcon-root:hover {
     color: lightblue;
+    transform: scale(1.5);
 }
 
 .home_body {
@@ -48,4 +49,5 @@
 .home_body>img {
     object-fit: contain;
     height: 100px;
+    margin-bottom: 40px;
 }
