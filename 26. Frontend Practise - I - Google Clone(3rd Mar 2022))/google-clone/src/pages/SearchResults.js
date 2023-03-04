@@ -8,7 +8,14 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import RoomIcon from '@mui/icons-material/Room';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import "./SearchResults.css"
+import { useStateValue } from "../StateProvider/StateProvider";
+import useGoogleSearch from "../useGoogleSearch";
+
 function SearchResults() {
+    const [{ term }, dispatch] = useStateValue()
+
+    const { data } = useGoogleSearch(term)
+    console.log(term, data)
     return (
         <div className="searchResults">
             <div className="searchResults_header">
@@ -62,9 +69,37 @@ function SearchResults() {
                     </div>
                 </div>
             </div>
-            <div className="searchResults_results">
-
-            </div>
+            {term && (
+                <div className="searchResults_results">
+                    <p className="searchResults_resultCount" >
+                        About {data?.searchInformation.formattedTotalResults} results in
+                        ({data?.searchInformation.formattedSearchTime} seconds) for {term}
+                    </p>
+                    {data?.items.map(item => (
+                        <div className="searchResults_result">
+                            {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                            <a href={item.link} target="_blank">
+                                {item.pagemap?.cse_image?.length > 0 && item.pagemap?.cse_image[0]?.src && (
+                                    <img
+                                        className="searchResults_resultImage"
+                                        src={item.pagemap?.cse_image?.length > 0 && item.pagemap?.cse_image[0]?.src}
+                                        alt=''
+                                    />
+                                )}
+                                {item.displayLink} ✔
+                            </a>
+                            {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                            <a className="searchResults_resultTitle" href={item.link} target="_blank">
+                                <h2>{item.title}</h2>
+                            </a>
+                            <p className="searchResults_resultSnippet">
+                                {item.snippet}
+                            </p>
+                            <hr />
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }
