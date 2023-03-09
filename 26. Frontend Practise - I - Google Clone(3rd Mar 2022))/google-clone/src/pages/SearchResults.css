@@ -62,3 +62,43 @@
 .searchResults_option a {
     margin-left: 5px;
 }
+
+.searchResults_result {
+    margin: 30px 0;
+}
+
+.searchResults_resultCount {
+    color: #70757a;
+    font-size: 16px;
+}
+
+.searchResults_results {
+    max-width: 650px;
+    margin-top: 20px;
+    margin-left: 240px;
+    margin-bottom: 100px;
+}
+
+.searchResults_resultImage {
+    border: 1px solid lightseagreen;
+    object-fit: contain;
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.searchResults_resultTitle {
+    text-decoration: none;
+}
+
+.searchResults_resultTitle:hover {
+    text-decoration: underline;
+}
+
+.searchResults_resultTitle>h2 {
+    font-weight: 500;
+}
+
+.searchResults_resultSnippet {
+    margin-top: 10px;
+}

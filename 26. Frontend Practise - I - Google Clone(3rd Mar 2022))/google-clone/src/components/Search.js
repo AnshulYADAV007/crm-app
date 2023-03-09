@@ -2,24 +2,25 @@ import React from "react"
 import SearchIcon from '@mui/icons-material/Search';
 import MicIcon from '@mui/icons-material/Mic';
 import { Button } from "@mui/material";
-import { useStateValue } from '../StateProvider/StateProvider'
 import "./Search.css"
 import { actionTypes } from "../StateProvider/reducer";
 import { useState } from "react";
+import { TextContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 function Search({ hideButtons = false }) {
-    const [{ term }, dispatch] = useStateValue()
-    const [input, setInput] = useState("")
+    const { text, setText } = React.useContext(TextContext)
+    const [input, setInput] = useState(text)
+    const navigate = useNavigate()
 
     const search = e => {
+        console.log("here")
         e.preventDefault()
 
-        dispatch({
-            type: actionTypes.SET_SEARCH_TERM,
-            term: input
-        })
-        console.log(term)
-        window.location.href = '/search'
+        setText(input)
+
+        console.log(text)
+        navigate('/search')
     }
 
     return (
@@ -42,7 +43,20 @@ function Search({ hideButtons = false }) {
                         >Google Search</Button>
                         <Button variant="outlined">I'm Feeling Lucky</Button>
                     </div>
-                ) : ("")
+                ) : (
+                    <div className="search_buttons">
+                        <Button
+                            className="search_buttonsHidden"
+                            onClick={search}
+                            type="submit"
+                            variant="outlined"
+                        >Google Search</Button>
+                        <Button
+                            className="search_buttonsHidden"
+                            variant="outlined"
+                        >I'm Feeling Lucky</Button>
+                    </div>
+                )
             }
         </form>
     )

@@ -8,14 +8,15 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import RoomIcon from '@mui/icons-material/Room';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import "./SearchResults.css"
-import { useStateValue } from "../StateProvider/StateProvider";
 import useGoogleSearch from "../useGoogleSearch";
+import { TextContext } from "../App";
+// import data from '../response'
 
 function SearchResults() {
-    const [{ term }, dispatch] = useStateValue()
+    const { text, _ } = React.useContext(TextContext)
 
-    const { data } = useGoogleSearch(term)
-    console.log(term, data)
+    const { data } = useGoogleSearch(text)
+
     return (
         <div className="searchResults">
             <div className="searchResults_header">
@@ -69,11 +70,11 @@ function SearchResults() {
                     </div>
                 </div>
             </div>
-            {term && (
+            {text && (
                 <div className="searchResults_results">
                     <p className="searchResults_resultCount" >
                         About {data?.searchInformation.formattedTotalResults} results in
-                        ({data?.searchInformation.formattedSearchTime} seconds) for {term}
+                        ({data?.searchInformation.formattedSearchTime} seconds) for {text}
                     </p>
                     {data?.items.map(item => (
                         <div className="searchResults_result">
