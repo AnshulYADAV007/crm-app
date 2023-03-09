@@ -11,8 +11,9 @@ import {
     makeStyles,
     ThemeProvider,
 } from "@material-ui/core/styles";
-import { useNavigator } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CryptoState } from "../CryptoContext";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -37,7 +38,7 @@ function Header() {
     const classes = useStyles();
     const { currency, setCurrency } = CryptoState();
 
-    const navigate = useNavigator();
+    const navigate = useNavigate();
 
     return (
         <ThemeProvider theme={darkTheme}>
