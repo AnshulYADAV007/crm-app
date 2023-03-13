@@ -1,0 +1,7 @@
+export { default as CreditHistory } from './CreditHistory'
+export { default as DerogatoryMarks } from './DerogatoryMarks'
+export { default as HardInquiries } from './HardInquiries'
+export { default as Home } from './Home'
+export { default as MissedPayments } from './MissedPayments'
+export { default as NumberOfAccounts } from './NumberOfAccounts'
+export { default as Utilization } from './Utilization'

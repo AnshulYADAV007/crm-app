@@ -1,0 +1,10 @@
+{
+  "graph": {
+    "columns": [["data1", 685, 697, 720, 730, 720, 725], ["data2", 700, 700, 700, 700, 700, 700]],
+    "type": "spline",
+    "names": {
+      "data1": "Your score over the last 6 months",
+      "data2": "National Average"
+    }
+  }
+}

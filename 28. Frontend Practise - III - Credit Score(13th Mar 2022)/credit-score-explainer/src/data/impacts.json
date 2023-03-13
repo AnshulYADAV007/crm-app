@@ -1,0 +1,46 @@
+{
+  "impacts": [
+    {
+      "name": "Years of Credit History",
+      "shortName": "history",
+      "description": "Average age of your credit accounts.",
+      "value": 21,
+      "isPositive": true
+    },
+    {
+      "name": "Number of Accounts",
+      "shortName": "accounts",
+      "description": "Total open and closed accounts.",
+      "value": 6,
+      "isPositive": false
+    },
+    {
+      "name": "Credit Utilization",
+      "shortName": "utilization",
+      "description": "How much credit you are using.",
+      "value": "26%",
+      "isPositive": true
+    },
+    {
+      "name": "Missed Payments",
+      "shortName": "missed-payments",
+      "description": "Percentage of missed payments.",
+      "value": "0%",
+      "isPositive": true
+    },
+    {
+      "name": "Hard Inquiries",
+      "shortName": "hard-inquiries",
+      "description": "Number of times you've applied for credit.",
+      "value": "3",
+      "isPositive": false
+    },
+    {
+      "name": "Derogatory Marks",
+      "shortName": "marks",
+      "description": "Collections, tax liens, bankrupcies.",
+      "value": "0",
+      "isPositive": true
+    }
+  ]
+}

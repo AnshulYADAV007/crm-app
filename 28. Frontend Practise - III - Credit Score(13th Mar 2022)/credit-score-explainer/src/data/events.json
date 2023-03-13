@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "name": "Credit Union A: balance increased by $1423",
+      "when": "2 days ago"
+    },
+    {
+      "name": "Credit Union B: balance increased by $345",
+      "when": "11 days ago"
+    },
+    {
+      "name": "Credit Union C: balance increased by $1845",
+      "when": "23 days ago"
+    },
+    {
+      "name": "Syncb/Care Credit: Account opened",
+      "when": "1 month ago"
+    },
+    {
+      "name": "Syncb/Care Credit: new credit iniquiry",
+      "when": "1 month ago"
+    },
+    {
+      "name": "Credit Union A: balance repayed",
+      "when": "2 months ago"
+    },
+    {
+      "name": "Credit Union B: balance repayed",
+      "when": "2 months ago"
+    }
+  ]
+}
