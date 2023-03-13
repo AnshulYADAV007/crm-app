@@ -11,9 +11,8 @@ import {
     makeStyles,
     ThemeProvider,
 } from "@material-ui/core/styles";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { CryptoState } from "../CryptoContext";
-import React from "react";
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -38,7 +37,7 @@ function Header() {
     const classes = useStyles();
     const { currency, setCurrency } = CryptoState();
 
-    const navigate = useNavigate();
+    const history = useHistory();
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -46,7 +45,7 @@ function Header() {
                 <Container>
                     <Toolbar>
                         <Typography
-                            onClick={() => navigate(`/`)}
+                            onClick={() => history.push(`/`)}
                             variant="h6"
                             className={classes.title}
                         >

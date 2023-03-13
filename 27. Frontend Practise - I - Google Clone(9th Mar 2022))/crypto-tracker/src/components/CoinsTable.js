@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import { CoinList } from "../config/api";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { CryptoState } from "../CryptoContext";
 
 export function numberWithCommas(x) {
@@ -50,7 +50,7 @@ export default function CoinsTable() {
     });
 
     const classes = useStyles();
-    const navigate = useNavigate();
+    const history = useHistory();
 
     const darkTheme = createTheme({
         palette: {
@@ -78,8 +78,8 @@ export default function CoinsTable() {
     const handleSearch = () => {
         return coins.filter(
             (coin) =>
-                coin.name.toLowerCase().includes(search.toLowerCase()) ||
-                coin.symbol.toLowerCase().includes(search.toLowerCase())
+                coin.name.toLowerCase().includes(search) ||
+                coin.symbol.toLowerCase().includes(search)
         );
     };
 
@@ -113,7 +113,7 @@ export default function CoinsTable() {
                                                 fontFamily: "Montserrat",
                                             }}
                                             key={head}
-                                            align={head === "Coin" ? "left" : "right"}
+                                            align={head === "Coin" ? "" : "right"}
                                         >
                                             {head}
                                         </TableCell>
@@ -128,7 +128,7 @@ export default function CoinsTable() {
                                         const profit = row.price_change_percentage_24h > 0;
                                         return (
                                             <TableRow
-                                                onClick={() => navigate.push(`/coins/${row.id}`)}
+                                                onClick={() => history.push(`/coins/${row.id}`)}
                                                 className={classes.row}
                                                 key={row.name}
                                             >
@@ -207,6 +207,6 @@ export default function CoinsTable() {
                     }}
                 />
             </Container>
-        </ThemeProvider >
+        </ThemeProvider>
     );
 }
