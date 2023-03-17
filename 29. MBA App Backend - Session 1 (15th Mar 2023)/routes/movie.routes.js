@@ -13,6 +13,6 @@ module.exports = function (app) {
     app.put("/mba/api/movies/:id",
         [verifyMovieReqBody.validateMovieRequestBody],
         movieController.updateMovie);
-    app.delete("/mba/api/v1/movies/:id",
+    app.delete("/mba/api/movies/:id",
         movieController.deleteMovie);
 }
