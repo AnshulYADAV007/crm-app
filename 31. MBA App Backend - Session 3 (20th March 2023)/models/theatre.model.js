@@ -35,8 +35,11 @@ const theatreSchema = new mongoose.Schema({
         default: () => {
             return Date.now();
         }
+    },
+    movies: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Movie"
     }
-
 }, {
     //versionKey: false // this will remove the __v field, which indicates the internal revision of the document
 })

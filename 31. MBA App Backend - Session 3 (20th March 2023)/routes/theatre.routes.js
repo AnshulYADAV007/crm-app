@@ -10,4 +10,6 @@ module.exports = function (app) {
     app.post("/mba/api/theatres", theatreController.createTheatre);
     app.put("/mba/api/theatres/:id", theatreController.updateTheatre);
     app.delete("/mba/api/theatres/:id", theatreController.deleteTheatre);
+    app.put("/mba/api/theatres/:id/movies", theatreController.putMoviesToATheater);
+    app.get("/mba/api/theatres/:theatreId/movies/:movieId", theatreController.checkMovieInsideATheatre)
 }
