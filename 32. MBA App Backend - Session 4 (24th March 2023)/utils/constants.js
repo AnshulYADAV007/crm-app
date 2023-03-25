@@ -6,5 +6,15 @@ module.exports = {
         unrealeased: 'UNRELEASED',
         released: 'RELEASED',
         blocked: 'BLOCKED'
+    },
+    userStatus: {
+        pending: 'PENDING',
+        approved: 'APPROVED',
+        rejected: 'REJECTED'
+    },
+    userTypes: {
+        customer: 'CUSTOMER',
+        admin: 'ADMIN',
+        client: 'CLIENT'
     }
 }
