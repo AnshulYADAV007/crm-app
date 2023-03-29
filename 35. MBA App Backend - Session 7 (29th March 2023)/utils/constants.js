@@ -16,5 +16,16 @@ module.exports = {
         customer: 'CUSTOMER',
         admin: 'ADMIN',
         client: 'CLIENT'
-    }
+    },
+    bookingStatus: {
+        inProgress: 'IN_PROGRESS',
+        completed: 'COMPLETED',
+        cancelled: 'CANCELLED',
+        expired: 'EXPIRED'
+    },
+    paymentStatus: {
+        success: 'SUCCESS',
+        failed: 'FAILED'
+    },
+    ticketPrice: 150
 }

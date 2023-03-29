@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 /**
  * Defines the schema of the theatre resource to be stored in the DB
  */
