@@ -31,8 +31,63 @@ mongoose.connect(dbConfig.DB_URL, () => {
  * movie booking database
  */
 async function init() {
-    await Movie.collection.drop();
     try {
+        await User.collection.drop()
+
+        const user = await User.create({
+            name: 'Anshul',
+            userId: 'admin',
+            email: 'anshul@gmail.com',
+            userType: 'ADMIN',
+            password: bcrypt.hashSync('Welcome', 8)
+        })
+
+        console.log('Admin user created')
+
+        await User.create({
+            name: 'Gauri',
+            userId: 'customer',
+            email: 'gauri@gmail.com',
+            userType: constants.userTypes.customer,
+            password: bcrypt.hashSync('Welcome', 8)
+        })
+
+        console.log('Customer user created')
+    } catch (e) {
+        console.log(e.message)
+    }
+
+    let client1, client2, client3
+
+    try {
+        client1 = await User.create({
+            name: "Client1",
+            userId: "client01",
+            email: "vivek1@gmail.com",
+            userType: constants.userTypes.client,
+            password: bcrypt.hashSync("Welcome", 8)
+        })
+        client2 = await User.create({
+            name: "Client2",
+            userId: "client02",
+            email: "vivek2@gmail.com",
+            userType: constants.userTypes.client,
+            password: bcrypt.hashSync("Welcome", 8)
+        })
+        client3 = await User.create({
+            name: "Client3",
+            userId: "client03",
+            email: "vivek3@gmail.com",
+            userType: constants.userTypes.client,
+            password: bcrypt.hashSync("Welcome", 8)
+        })
+        console.log("Clients created")
+    } catch (e) {
+        console.log(e.message)
+    }
+
+    try {
+        await Movie.collection.drop();
         const movie1 = await Movie.create({
             name: "Bachhan Pandey",
             description: "Comedy Masala Movie",
@@ -98,7 +153,8 @@ async function init() {
             city: "Bangalore",
             description: "Top class theatre",
             pinCode: 560052,
-            movies: [movie1._id, movie2._id, movie3._id]
+            movies: [movie1._id, movie2._id, movie3._id],
+            ownerId: client1._id
 
         });
         await Theatre.create({
@@ -106,73 +162,45 @@ async function init() {
             city: "Bangalore",
             description: "PVR franchise theatre",
             pinCode: 560095,
-            movies: [movie1._id, movie2._id, movie4._id]
+            movies: [movie1._id, movie2._id, movie4._id],
+            ownerId: client1._id
         });
         await Theatre.create({
             name: "IMax",
             city: "Bangalore",
             description: "IMax franchise theatre",
             pinCode: 560095,
-            movies: [movie1._id, movie4._id]
+            movies: [movie1._id, movie4._id],
+            ownerId: client2._id
         });
         await Theatre.create({
             name: "Vaibhav Theatre",
             city: "Bangalore",
             description: "Economical theatre",
             pinCode: 560094,
-            movies: [movie5._id, movie4._id]
+            movies: [movie5._id, movie4._id],
+            ownerId: client2._id
         });
         await Theatre.create({
             name: "Inox",
             city: "Pune",
             description: "Top class theatre",
             pinCode: 411001,
-            movies: [movie5._id, movie2._id]
+            movies: [movie5._id, movie2._id],
+            ownerId: client3._id
         });
         await Theatre.create({
             name: "Sonmarg Theatre",
             city: "Pune",
             description: "Economical theatre",
             pinCode: 411042,
-            movies: [movie3._id, movie2._id]
+            movies: [movie3._id, movie2._id],
+            ownerId: client3._id
         });
 
         console.log("Theatres created");
-
-
     } catch (e) {
         console.error(e.message)
-    }
-
-    try {
-        await User.collection.drop()
-
-        const user = await User.create({
-            name: 'Anshul',
-            userId: 'admin',
-            email: 'anshul@gmail.com',
-            userType: 'ADMIN',
-            password: bcrypt.hashSync('Welcome', 8)
-        })
-
-        console.log('Admin user created')
-    } catch (e) {
-        console.log(e.message)
-    }
-
-    try {
-
-        const user = await User.create({
-            name: 'Gauri',
-            userId: 'customer',
-            email: 'gauri@gmail.com',
-            userType: constants.userTypes.customer,
-            password: bcrypt.hashSync('Welcome', 8)
-        })
-
-        console.log('Customer user created')
-    } catch (e) {
-        console.log(e.message)
     }
 }
 

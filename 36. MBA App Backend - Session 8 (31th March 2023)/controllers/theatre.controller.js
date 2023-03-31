@@ -1,17 +1,22 @@
 const Theatre = require('../models/theatre.model')
-const Movie = require('../models/movie.model')
+const Movie = require('../models/movie.model');
+const userModel = require('../models/user.model');
+const { sendEmail } = require('../utils/NotificationClient');
 
 exports.createTheatre = async (req, res) => {
     const theatreObject = {
         name: req.body.name,
         city: req.body.city,
         description: req.body.description,
-        pinCode: req.body.pinCode
-
+        pinCode: req.body.pinCode,
+        ownerId: req.body.ownerId
     }
 
     try {
         const theatre = await Theatre.create(theatreObject);
+        const owner = await userModel.findOne({ _id: theatre.ownerId })
+        sendEmail(theatre._id, "New theatre created with the theatre id: " + theatre._id,
+            JSON.stringify(theatre), owner.email, "mba-no-reply@mba.com")
         res.status(201).send(theatre);
     } catch (e) {
         console.log(e.message)
@@ -83,6 +88,15 @@ exports.updateTheatre = async (req, res) => {
 
     try {
         const updatedTheatre = await savedTheatre.save();
+        console.log(updatedTheatre)
+        const owner = await userModel.findOne({ _id: updatedTheatre.ownerId })
+        sendEmail(
+            updatedTheatre._id,
+            "Updated theatre with the theatre id: " + updatedTheatre._id,
+            JSON.stringify(updatedTheatre),
+            owner.email,
+            "mba-no-reply@mba.com"
+        )
         res.status(200).send(updatedTheatre);
     } catch (e) {
         console.log(e.message)
@@ -94,9 +108,24 @@ exports.updateTheatre = async (req, res) => {
  */
 exports.deleteTheatre = async (req, res) => {
     try {
+        const savedTheatre = await Theatre.findOne({
+            _id: req.params.id
+        })
         await Theatre.deleteOne({
             _id: req.params.id
         });
+        const owner = await userModel.findOne({
+            _id: savedTheatre.ownerId
+        })
+
+        sendEmail(
+            savedTheatre._id,
+            "Theatre deleted with the theatre id: " + savedTheatre._id,
+            "Theatre Deleted",
+            owner.email,
+            "mba-no-reply@mba.com"
+        )
+
         res.status(200).send({
             message: "Successfully deleted theatre with id [ " + req.params.id + " ]"
         });
@@ -135,6 +164,17 @@ exports.putMoviesToATheater = async (req, res) => {
 
     try {
         const updatedTheatre = await savedTheatre.save();
+        const owner = await userModel.findOne({
+            _id: savedTheatre.ownerId
+        })
+        sendEmail(
+            savedTheatre._id,
+            "Movies updated in the theatre with id: " + savedTheatre._id,
+            JSON.stringify(updatedTheatre),
+            owner.email,
+            "mba-no-reply@mba.com"
+        )
+
         res.status(200).send(updatedTheatre);
     } catch (e) {
         console.log(e.message)

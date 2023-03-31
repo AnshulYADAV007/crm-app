@@ -5,6 +5,6 @@ module.exports = nodemailer.createTransport({
     debug: true,
     auth: {
         user: 'anshulyadav98@gmail.com',
-        pass: 'amjvdhrrjrhikugd'
+        pass: 'pbykyruqbaylgthz'
     }
 })
