@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getAllMovies } from '../../api/movie'
+import Navbar from '../Navbar/Navbar'
 import './LandingPage.css'
 const LandingPage = () => {
 
@@ -12,10 +13,15 @@ const LandingPage = () => {
         setPageLoading(false)
     }
 
+    const selectedMovie = (movieName) => {
+        console.log(`Selected movie: ${movieName}`)
+    }
+
     useEffect(() => { init() }, [])
 
     return (
-        <div>
+        !pageLoading ? (<div>
+            <Navbar movies={movieList.map((movie) => movie.name)} onMovieSelect={selectedMovie} />
             <div className='container mx-5 my-2'>
                 <p className='fw-bloder'>Recomended Movies</p>
                 <div className='row'>
@@ -35,6 +41,7 @@ const LandingPage = () => {
                 </div>
             </div>
         </div>
+        ) : <div>Fetching Movies from backend ...</div>
     )
 }
 
