@@ -11,7 +11,8 @@ const constants = require('./utils/constants')
 
 // Initializing express
 const app = express()
-
+const cors = require('cors')
+app.use(cors())
 // Using the bodyParser middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
