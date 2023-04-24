@@ -1,10 +1,9 @@
 import { CWidgetStatsC } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
-import './Admin.css'
 import { getAllMovies } from '../../api/movie'
 import { getAllTheaters } from '../../api/theater'
 
-const Admin = () => {
+const Client = () => {
     let [theaters, setTheaters] = useState([])
     let [movies, setMovies] = useState([])
 
@@ -21,21 +20,9 @@ const Admin = () => {
 
     return (
         <div className='container bg-light mt-2'>
-            <h3 className='text-center'>Welcome, Admin!</h3>
+            <h3 className='text-center'>Welcome, Client!</h3>
             <p className='text-center text-secondary'>Take a quick look at your stats below</p>
             <div className='row header'>
-                <div className='col'>
-                    <CWidgetStatsC
-                        className='mb-3 text-danger'
-                        icon={<i className='bi bi-people-fill text-danger'></i>}
-                        color="dark"
-                        inverse
-                        progress={{ value: 80 }}
-                        text="Number of Users"
-                        title="Users"
-                        value={80}
-                    />
-                </div>
                 <div className='col'>
                     <CWidgetStatsC
                         className='mb-3 text-danger'
@@ -100,4 +87,4 @@ const Admin = () => {
     )
 }
 
-export default Admin
+export default Client

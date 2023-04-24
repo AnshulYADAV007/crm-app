@@ -2,6 +2,8 @@ const Theatre = require('../models/theatre.model')
 const Movie = require('../models/movie.model');
 const userModel = require('../models/user.model');
 const { sendEmail } = require('../utils/NotificationClient');
+const constants = require('../utils/constants');
+const ObjectId = require('mongoose').Types.ObjectId
 
 exports.createTheatre = async (req, res) => {
     const theatreObject = {
@@ -40,6 +42,12 @@ exports.getAllTheatres = async (req, res) => {
     }
 
     try {
+        console.log(req.userId)
+        let user = await userModel.findOne({ userId: req.userId })
+        if (user.userType === constants.userTypes.client) {
+            queryObj.ownerId = user._id
+        }
+        console.log(queryObj, user._id)
         let theatres = await Theatre.find(queryObj);
         if (req.query.movieId != undefined) {
             theatres = theatres.filter(
