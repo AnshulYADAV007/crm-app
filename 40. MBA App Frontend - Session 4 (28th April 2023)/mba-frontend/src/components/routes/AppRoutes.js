@@ -1,8 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import LandingPage from '../LandingPage/LandingPage'
-import Login from '../Auth/Auth'
-import Admin from '../Admin/Admin'
-import Client from '../Client/Client'
+import LandingPage from '../../pages/LandingPage/LandingPage'
+import Login from '../../pages/Auth/Auth'
+import Admin from '../../pages/Admin/Admin'
+import Client from '../../pages/Client/Client'
+import Booking from '../../pages/Booking/Booking'
+import MovieDetails from '../../pages/MovieDetails/MovieDetails'
+import MovieTheaters from '../../pages/MovieTheatres/MovieTheatres'
 
 const AppRoutes = () => {
     return (
@@ -27,6 +30,24 @@ const AppRoutes = () => {
                     exact
                     path='/client'
                     element={<Client />}
+                />
+                <Route
+                    exact
+                    path='/movie/:movieid/:theatreid'
+                    element={<Booking />}
+                />
+                <Route
+                    exact
+                    path='/movie/:movieid/details'
+                    element={<MovieDetails />}
+                />
+
+                <Route
+                    exact
+                    path="/buytickets/:moviename/:movieid"
+                    element={
+                        <MovieTheaters />
+                    }
                 />
             </Routes>
         </Router>

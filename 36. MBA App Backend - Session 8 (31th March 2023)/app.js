@@ -95,7 +95,7 @@ async function init() {
             casts: ["Akshay Kumar", "Jacqueline Fernandiz"],
             director: "Farhad Samji",
             trailerUrl: "http://bacchanpandey/trailers/1",
-            posterUrl: "http://bacchanpandey/posters/1",
+            posterUrl: "https://upload.wikimedia.org/wikipedia/en/c/c1/Bachchhan_Paandey_poster.jpg",
             language: "Hindi",
             releaseDate: "18-03-2022",
             releaseStatus: "RELEASED"
