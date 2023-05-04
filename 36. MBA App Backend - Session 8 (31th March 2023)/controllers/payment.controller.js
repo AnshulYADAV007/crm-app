@@ -75,9 +75,9 @@ exports.createPayment = async (req, res) => {
         await booking.save();
 
         const user = await User.findOne({ "userId": req.userId })
-        sendEmail(payment._id, "Payment successful for the booking id: "
-            + req.body.bookingId, JSON.stringify(booking), user.email,
-            "mba-no-reply@mba.com")
+        // sendEmail(payment._id, "Payment successful for the booking id: "
+        //     + req.body.bookingId, JSON.stringify(booking), user.email,
+        //     "mba-no-reply@mba.com")
 
         return res.status(201).send(payment);
     } catch (err) {
